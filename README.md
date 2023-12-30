@@ -40,7 +40,7 @@ docker-compose up --build
 
 ### Option 2: Create a New Env
 
-0 - Change the .env file according to your informations.
+0 - Change the .env_merge file according to your informations. Change the file's name from .env_merge to .env
 
 1 - Create a new environment:
 
@@ -86,9 +86,11 @@ python backend/main.py
 python frontend/main.py
 ```
 
-Backend Link -> 0.0.0.0:1111
+Go to your browser and access the project:
 
-Frontend Link -> 0.0.0.0:5000
+> Backend Link -> localhost:1111
+
+> Frontend Link -> localhost:5000
 
 
 ## Demo ( Click to watch video )
@@ -99,7 +101,7 @@ Frontend Link -> 0.0.0.0:5000
 
 1. When someone tries to request without selection the program crashes due to unknown data pass.
 2. When someone tries to pick a date on the weekend, the functions related to datetime won't work.
-3. Can not upload profile picture currently.
+3. Can not upload a profile picture currently.
 
 ## Issues That Need Improvements
 

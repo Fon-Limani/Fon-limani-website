@@ -6,7 +6,7 @@ services:
     ports:
       - "1111:1111"
     env_file:
-      - .env
+      - /backend/.env
     networks:
       - app-network
     volumes:
@@ -17,13 +17,14 @@ services:
     ports:
       - "5000:5000"
     env_file:
-      - .env
+      - /website/.env
     depends_on:
       - backend
     volumes:
       - shared-data:/data
     networks:
       - app-network
+    restart: on-failure
 
 networks:
   app-network:
