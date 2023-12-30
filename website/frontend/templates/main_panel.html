@@ -1,0 +1,181 @@
+{% extends "base_dashboard.html" %}
+{% block title %} | Ana Panel{% endblock %}
+{% block sources %}
+    
+{% endblock %}
+{% block body %}
+
+<div class="dashboard container-fluid m-0 p-0" style="height: calc(100vh - 57px);">
+    <div class="h-100 w-100 d-flex flex-column flex-lg-row">
+        <div class="d-flex position-sticky bg-white sidebar bg-body-tertiary m-0 mb-lg-0 mb-3 p-0" style="min-height: 57px; border-right: solid 1px rgb(33, 37, 41, 0.25); border-bottom: solid 1px rgb(33, 37, 41, 0.25)">
+            <div class="d-flex position-sticky w-100">
+                <ul class="nav nav-pills align-items-center justify-content-evenly flex-auto nav-flush mb-auto text-center flex-row flex-lg-column w-100">
+                    <li class="nav-item w-100-lg">
+                        <a href="/ana_panel" class="nav-link active py-3 rounded-0" aria-current="page" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Ana Sayfa" data-bs-original-title="Ana Sayfa">
+                            <i class="fa fa-home" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="w-100-lg">
+                        <a href="fon_ara" class="nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Fon Ara" data-bs-original-title="Fon Ara">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="w-100-lg">
+                        <a href="/portfoyum" class="nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Portföyüm" data-bs-original-title="Portföyüm">
+                            <i class="fa fa-pie-chart" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="w-100-lg">
+                        <a href="/trend_analizi" class="nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Trend Analiz Aracı" data-bs-original-title="Trend Analiz Aracı">
+                            <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="w-100-lg">
+                        <a href="/portfoy_simulasyonu" class="nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Portföy Simülasyonu" data-bs-original-title="Portföy Simülasyonu">
+                            <i class="fa fa-line-chart" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="w-100-lg">
+                        <a href="/haberler" class="nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Haberler" data-bs-original-title="Haberler">
+                            <i class="fa fa-newspaper" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                </ul>
+                
+            </div>
+            
+        </div>
+
+        <div class="w-100 h-100 d-flex justify-content-center px-4 py-4" style="overflow-y: scroll;">
+
+            <div class="main_page w-100">
+                <div class="container-fluid p-0">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-6 col-sm-12 left-panel">
+                            <div class="row top-panel d-flex flex-column align-items-center justify-content-start">
+                                <h5 class="m-0 p-0 text-center">Limanda Bu Ay En Çok Kazandıranlar</h5>
+                                <div class="m-0 p-0" id="top_nine_figure" style="margin-top: -60px !important; margin-bottom: -10px !important; height: 90%; max-height: 360px !important;"></div>
+                            </div>
+                            <div class="row bottom-panel d-flex justify-content-center align-items-center">
+                                <h5 class="mb-2 m-0 p-0 text-center">Liman 9</h5>
+                                <div class="d-grid gap-1 justify-content-center align-items-center m-0 p-0" style="grid-template-columns: repeat(3, 1fr); width: auto !important;">
+                                    {% for i in range(0, 9) %}
+                                        <div class="position-relative", style="width: 128px !important; height: 128px !important; background-color: #1039A5;">
+                                            <div class="position-absolute text-center" style="top: 10px; left: 10px;">
+                                                <a class="text-white text-decoration-none">{{ top_nine_code_data[i] }}</a>
+                                            </div>
+                                            <div class="position-absolute" style="top: 25px; left: -10px;" id="top_nine_{{ i }}"></div>
+                                            <div class="position-absolute text-center" style="bottom: 5px; left: 10px;">
+                                                <a class="text-white text-decoration-none">{{ top_nine_price_data[i] }} ₺</a>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="col-xl-4 col-lg-6 col-sm-12 middle-panel">
+                            <div class="row top-panel" style="height: 40%;">
+                                <h5 class="mb-2 m-0 p-0 text-center">Portföyüm</h5>
+                                <div>
+                                    {% if pie_figure != "404" %}
+                                        <div class="m-0 p-0" id="pie_figure" style="margin-top: -90px !important; margin-bottom: -60px !important; height: 90%; min-height: 320px; max-height: 400px !important;"></div>
+                                        <h5 class="text-primary text-center">Toplam: {{pie_data["sum"]}} ₺</h5>
+                                    {% else %}
+                                        <h5 class="text-primary text-center">Portföyünüzde bir fon yok! Portföye fon eklemek için <a href="/portfoyum">Portföyüm</a> sekmesine gidebilirsiniz.</h5>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="row bottom-panel px-lg-5 py-5 mb-5">
+                                {% if pie_data != "404" %}
+                                    {% for i in range(pie_data["hold_numbers"] | length) %}
+                                        <div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <a class="text-decoration-none text-primary">{{pie_data["Fon Kodu"][i]}}</a>
+                                                <a class="text-decoration-none text-primary">{{pie_data["value"][i]}} ₺</a>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="width: {{pie_data['Yüzde'][i]}}%" aria-valuenow="{{pie_data['Yüzde'][i]}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+        
+                        <div class="col-xl-4 col-lg-6 col-sm-12 right-panel">
+                            <div class="row top-panel align-content-start justify-content-center mb-2">
+                                <h5 class="mb-2 m-0 p-0 text-center">Yayınlanan Son Raporlar</h5>
+                                <div class="d-flex row flex-auto align-items-center justify-content-evenly p-0">
+                                    {% for i in range(reports | length) %}
+                                      <div class="card p-0 my-2" style="width: 40%;">
+                                        <div class="card-body d-flex flex-row justify-content-between">
+                                            <div class="d-flex flex-column align-items-start justify-content-center me-2">
+                                                <h5 class="fs-09rem m-0">{{reports[i]["stock_code"]}} Aylık Raporu</h5>
+                                                <a class="text-primary text-decoration-none fs-09rem" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; line-clamp: 1; -webkit-box-orient: vertical;">{{reports[i]["publish_date"]}}</a>
+                                            </div>
+                                            <button class="btn btn-primary p-1" onclick="window.open('{{ reports[i]['pdf_url'] }}', '_blank')" style="cursor: pointer;"><a class="text-white fs-09rem text-decoration-none px-2 py-1"><i class="fa fa-download" aria-hidden="true"></i></a></button>
+                                        </div>
+                                      </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="row bottom-panel px-lg-5">
+                                <h5 class="mb-2 m-0 p-0 text-center">Haberler</h5>
+                                <div class="d-flex row align-items-center justify-content-center">
+                                    {% for i in range(news | length) %}
+                                      <div class="card mb-1">
+                                        <div class="card-body p-2">
+                                            <p class="fs-09rem mb-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{news[i]["news_information"]}}</p>
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <a class="text-dark text-decoration-none fs-09rem" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; line-clamp: 1; -webkit-box-orient: vertical;">{{news[i]["timestamp"][:10]}}</a>
+                                                <a class="text-primary" href="{{ news[i]['news_link'] }}" target="_blank" rel="noopener noreferrer">Habere Git</a>
+                                            </div>
+                                        </div>
+                                      </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+{% endblock %}
+{% block scripts %}
+
+
+    <script>
+        var top_nine_figure = {{ top_nine_figure | safe }};
+        var config = {"displayModeBar": false, "responsive": true};
+        Plotly.setPlotConfig(config);
+        Plotly.newPlot('top_nine_figure', top_nine_figure, {});
+    </script>
+
+{% if pie_figure != "404" %}
+    <script>
+        var pie_figure = {{ pie_figure | safe }};
+        var config = {"displayModeBar": false, "responsive": true};
+        Plotly.setPlotConfig(config);
+        Plotly.newPlot('pie_figure', pie_figure, {});
+    </script>
+{% endif %}
+
+<script>
+    {% for i in range(0, 9) %}
+        var top_nine_{{ i }} = {{ top_nine[i] | safe }};
+        var config_{{ i }} = {"displayModeBar": false, "responsive": true};
+        Plotly.setPlotConfig(config_{{ i }});
+        Plotly.newPlot(`top_nine_{{ i }}`, top_nine_{{ i }}, {});
+    {% endfor %}
+</script>
+
+
+{% endblock %}

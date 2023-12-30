@@ -1,0 +1,266 @@
+{% extends "base_dashboard.html" %}
+{% block title %} | Fon Ara{% endblock %}
+{% block sources %}    
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/additional/profile.css')}}">
+{% endblock %}
+{% block body %}
+
+    <div class="dashboard container-fluid m-0 p-0" style="height: calc(100vh - 57px);">
+        <div class="h-100 w-100 d-flex flex-column flex-lg-row">
+            <div class="d-flex position-sticky bg-white sidebar bg-body-tertiary m-0 mb-lg-0 mb-3 p-0" style="min-height: 57px; border-right: solid 1px rgb(33, 37, 41, 0.25); border-bottom: solid 1px rgb(33, 37, 41, 0.25)">
+                <div class="d-flex position-sticky w-100">
+                    <ul class="nav nav-pills align-items-center justify-content-evenly flex-auto nav-flush mb-auto text-center flex-row flex-lg-column w-100">
+                        <li class="nav-item w-100-lg">
+                            <a href="/ana_panel" class="nav-link py-3 rounded-0" aria-current="page" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Ana Sayfa" data-bs-original-title="Ana Sayfa">
+                                <i class="fa fa-home" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li class="w-100-lg">
+                            <a href="/fon_ara" class="nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Fon Ara" data-bs-original-title="Fon Ara">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li class="w-100-lg">
+                            <a href="/portfoyum" class="nav-link active py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Portföyüm" data-bs-original-title="Portföyüm">
+                                <i class="fa fa-pie-chart" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li class="w-100-lg">
+                            <a href="/trend_analizi" class="nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Trend Analiz Aracı" data-bs-original-title="Trend Analiz Aracı">
+                                <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li class="w-100-lg">
+                            <a href="/portfoy_simulasyonu" class="nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Portföy Simülasyonu" data-bs-original-title="Portföy Simülasyonu">
+                                <i class="fa fa-line-chart" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li class="w-100-lg">
+                            <a href="/haberler" class="nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Haberler" data-bs-original-title="Haberler">
+                                <i class="fa fa-newspaper" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+                
+            </div>
+
+            <div class="w-100 h-100 d-flex flex-column flex-lg-row justify-content-center px-4 py-4" style="overflow-y: scroll;">
+
+                <div class="col col-lg-4 col-lg-6 col-sm-12 middle-panel" id="colD">
+                    <div class="row top-panel" style="height: 40%;">
+                        <h5 class="mb-2 m-0 p-0 text-center">Portföyüm</h5>
+                        {% if pie_data != "404" %}
+                            <div>
+                                <div class="m-0 p-0" id="pie_figure" style="margin-top: -90px !important; margin-bottom: -60px !important; height: 90%; min-height: 320px; max-height: 500px !important;"></div>
+                                <h5 class="text-primary text-center">Toplam: {{pie_data["sum"]}} ₺</h5>
+                            </div>
+                        {% else %}
+                            <div class="text-center">Portföyünüzü oluşturmak için fon ekleyebilirsiniz!</div>
+                        {% endif %}
+                    </div>
+                    <div class="row bottom-panel px-lg-5 py-5 mb-5">
+                        {% if pie_data != "404" %}
+                            {% for i in range(pie_data["hold_numbers"] | length) %}
+                                <div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <a class="text-decoration-none text-primary">{{pie_data["Fon Kodu"][i]}}</a>
+                                        <a class="text-decoration-none text-primary">{{pie_data["value"][i]}} ₺</a>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: {{pie_data['Yüzde'][i]}}%" aria-valuenow="{{pie_data['Yüzde'][i]}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <form method="post" action="{{ url_for('portfoyum') }}" class="d-flex flex-column gap-3" id="searchF">
+                    <div class="w-100" id="searchForm">
+                        <div class="form-outline" data-mdb-input-init>
+                            <label for="slider">Fon Seçin</label>
+                            {% if fund_code %}
+                                <input class="form-control w-100" type="text" id="fund_code" name="fund_code" placeholder="Fon Ara..." aria-label="Search" oninput="delayedSearchFunds()" value="{{ fund_code }}">
+                            {% else %}
+                                <input class="form-control w-100" type="text" id="fund_code" name="fund_code" placeholder="Fon Ara..." aria-label="Search" oninput="delayedSearchFunds()">
+                            {% endif %}
+                        </div>
+                        <div id="searchResults" class="list-group position-absolute w-100"></div>
+                    </div>
+                    <label for="slider">Fon Sayısı</label>
+                    <input class="form-control w-100" type="text" id="fund_number" name="fund_number" placeholder="Fon Sayısı...">
+                    
+                    <button type="submit" class="btn btn-primary">Fon Ekle</button>
+                </form>      
+
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block scripts %}
+<style>
+    @media screen and (min-width: 976px){
+        #searchF{
+            width: 50%;
+        }
+        #colD{
+            width: 50%;
+        }
+    }
+    @media screen and (max-width: 976px){
+        #searchF{
+            width: 100%;
+        }
+        #colD{
+            margin-top: 120px;
+            width: 100%;
+        } 
+    }
+</style>
+<script>
+    var searchTimeout;
+
+    function delayedSearchFunds() {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(searchFunds, 500); // Adjust the delay (in milliseconds)
+    }
+
+    function searchFunds() {
+        var fundName = document.getElementById('fund_code').value.trim().toUpperCase();
+
+        // Check if the search query is not empty
+        if (fundName === '') {
+            // Clear results if the search query is empty
+            var resultsDiv = document.getElementById('searchResults');
+            resultsDiv.innerHTML = '';
+            return;
+        }
+
+        // Make the API call to the Flask route
+        fetch(`/search_funds?text=${encodeURIComponent(fundName)}`)
+            .then(response => response.json())
+            .then(data => {
+                // Handle the data received from the Flask route
+                displaySearchResults(data);
+            })
+            .catch(error => {
+                // Handle errors
+                console.error(error);
+            });
+    }
+
+    function displaySearchResults(data) {
+        var resultsDiv = document.getElementById('searchResults');
+        resultsDiv.innerHTML = '';  // Clear previous results
+
+        // Process and display the search results
+        if (data && data.results) {
+            data.results.forEach(function (result) {
+                // Create a button instead of a link
+                var resultItem = document.createElement('button');
+                resultItem.type = 'button';
+                resultItem.style.zIndex = 1231;
+                resultItem.className = 'list-group-item list-group-item-action';
+                // Set onclick to set the selected fund in the form
+                resultItem.onclick = function() {
+                    document.getElementById('fund_code').value = result.fund_code + ' - ' + result.fund_name;
+                    // Optionally, you can close the search results dropdown
+                    resultsDiv.innerHTML = '';
+                };
+                // Wrap the fund_code in a span with a class for styling
+                resultItem.innerHTML = `<span class="text-primary text-decoration-none font-weight-bold">${result.fund_code}</span> - ${result.fund_name}`;
+                resultsDiv.appendChild(resultItem);
+            });
+        } else {
+            resultsDiv.textContent = 'No results found.';
+        }
+    }
+
+    // Event listener to hide search results when clicking outside the search area
+    document.addEventListener('click', function(event) {
+        var searchForm = document.getElementById('searchForm');
+        var searchResults = document.getElementById('searchResults');
+
+        if (!searchForm.contains(event.target) && !searchResults.contains(event.target)) {
+            // Clicked outside the search area, hide results
+            searchResults.innerHTML = '';
+        }
+    });
+</script>
+
+<script>
+      // Update the output value and display it on top of the slider thumb
+  const slider = document.getElementById('slider');
+  const sliderValue = document.getElementById('sliderValue');
+  const customSlider = document.querySelector('.custom-slider');
+
+  slider.addEventListener('input', function () {
+    sliderValue.value = slider.value;
+    updateSliderValuePosition();
+    drawLines();
+  });
+
+  function updateSliderValuePosition() {
+    const percent = (slider.value - slider.min) / (slider.max - slider.min);
+    const thumbWidth = 20; // Adjust based on your slider thumb size
+    const thumbPosition = percent * (slider.offsetWidth - thumbWidth);
+    sliderValue.style.left = thumbPosition + 'px';
+  }
+
+  function drawLines() {
+    const numLines = 5; // Number of lines to draw
+    const lineInterval = 12;
+
+    // Remove existing lines
+    document.querySelectorAll('.slider-line').forEach(line => line.remove());
+
+    // Draw lines
+    for (let i = 1; i < numLines; i++) {
+      const line = document.createElement('div');
+      line.className = 'slider-line';
+      const linePosition = ((i * lineInterval) - .5) / 59 * 100;
+      line.style.left = `calc(${linePosition}% - 1px)`;
+      customSlider.appendChild(line);
+    }
+  }
+
+  // Initial positioning and drawing
+  updateSliderValuePosition();
+  drawLines();
+</script>
+
+
+{% if pie_figure != "404" %}
+    <script>
+        var pie_figure = {{ pie_figure | safe }};
+        var config = {"displayModeBar": false, "responsive": true};
+        Plotly.setPlotConfig(config);
+        Plotly.newPlot('pie_figure', pie_figure, {});
+    </script>
+{% endif %}
+
+<style>
+    /* Custom styles for displaying value on top of the slider thumb */
+    .custom-slider {
+      position: relative;
+    }
+
+    .custom-slider-value {
+      position: absolute;
+      top: -25px;
+      left: 50%;
+    }
+
+    .slider-line {
+      position: absolute;
+      background-color: #007bff;
+      height: 5px;
+      width: 1px;
+      top: 0;
+    }
+</style>
+{% endblock %}

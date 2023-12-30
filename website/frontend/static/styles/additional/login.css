@@ -1,0 +1,56 @@
+.customHeading {
+  color:#1039A5;
+}
+.custom-form-group label {
+  color:#1039A5;
+  font-size:13px;
+  font-weight:bold;
+  letter-spacing:2px;
+}
+.custom-form-group span {
+  width:32px;
+  border-bottom:1px solid #1039A5;
+  vertical-align:middle;
+  color:#1039A5;
+  display:inline;
+}
+.custom-form-group input {
+  width : calc(100% - 32px);
+  border:none;
+  border-bottom:1px solid #1039A5;
+  box-sizing:content-box;
+  outline:none;
+}
+.custom-btn {
+  border-radius:32px;
+  background : #1039A5;
+  border:2px solid transparent;
+  color:#fff;
+  height:48px;
+}
+.custom-btn:hover {
+  background : #fff;
+  border:none;
+  border:2px solid #1039A5;
+  color:#1039A5;
+}
+#formPanel {
+  min-width:160px;
+  max-width:320px;
+  width:100%;
+  margin:0 auto;
+}
+.objectFit {
+  object-fit:cover;
+  width:100%;
+  max-width:540px;
+  min-height:60vh;
+  margin:0 auto
+}
+#showCursor {
+  cursor:pointer
+}
+
+.login-box {
+    max-width: 60%;
+}

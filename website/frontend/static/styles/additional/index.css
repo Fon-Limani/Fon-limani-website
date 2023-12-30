@@ -1,0 +1,74 @@
+.wave-box {
+    bottom: 0;
+    left: 0;
+    height: 164px;
+    position: absolute;
+    width: 100%;
+}
+
+.waves {
+    position: absolute;
+    width: 100%;
+    min-height: 100px;
+    max-height: 150px;
+    bottom: 0;
+    left: 0;
+}
+
+.parallax>use {
+    animation: move-forever 25s cubic-bezier(.55, .5, .45, .5) infinite;
+}
+
+.parallax>use:nth-child(1) {
+    animation-delay: -2s;
+    animation-duration: 7s;
+}
+
+.parallax>use:nth-child(2) {
+    animation-delay: -3s;
+    animation-duration: 10s;
+}
+
+.parallax>use:nth-child(3) {
+    animation-delay: -4s;
+    animation-duration: 13s;
+}
+
+@keyframes move-forever {
+    0% {
+        transform: translate3d(-90px, 0, 0);
+    }
+
+    100% {
+        transform: translate3d(85px, 0, 0);
+    }
+}
+
+.main-scroll{
+    width: 100%;
+    height: calc(100vh - 57px);
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+}
+
+.main-scroll section{
+    scroll-snap-align: end;
+}
+
+#lightshine {
+    position: absolute;
+    height: 92%;
+    width: 300%;
+    background-color: #99B1E4;
+    left: -97.5%;
+    top: 10%;
+    clip-path: polygon(50% 0%, 75% 100%, 100% 100%);
+    opacity: 0.25;
+    transform-origin: center;
+    animation: rotatelight 12s infinite linear alternate;
+}
+
+@keyframes rotatelight{
+    to{ transform: rotateY(-180deg); }
+    from{ transform: rotateY(0deg); }
+}

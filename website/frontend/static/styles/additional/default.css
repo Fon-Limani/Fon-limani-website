@@ -1,0 +1,45 @@
+@media (min-width: 992px) {
+    .w-100-lg {
+        width: 100%;
+    }
+}
+
+.font-weight-thin{font-weight: 100;}
+.font-weight-extra-light{font-weight: 200;}
+.font-weight-light{font-weight: 300;}
+.font-weight-regular{font-weight: 400;}
+.font-weight-medium{font-weight: 500;}
+.font-weight-semi-bold{font-weight: 600;}
+.font-weight-bold{font-weight: 700;}
+.font-weight-thin{font-weight: 800;}
+.font-weight-extra-bold{font-weight: 900;}
+
+.fs-09rem{font-size: 0.9rem;}
+.fs-08rem{font-size: 0.8rem;}
+.fs-07rem{font-size: 0.7rem;}
+.fs-06rem{font-size: 0.6rem;}
+.fs-05rem{font-size: 0.5rem;}
+.fs-04rem{font-size: 0.4rem;}
+.fs-03rem{font-size: 0.3rem;}
+.fs-02rem{font-size: 0.2rem;}
+.fs-01rem{font-size: 0.1rem;}
+
+
+.br-4px{border-radius: 4px;}
+.br-8px{border-radius: 8px;}
+.br-9px{border-radius: 9px;}
+.br-12px{border-radius: 12px;}
+.br-16px{border-radius: 16px;}
+.br-20px{border-radius: 20px;}
+.br-24px{border-radius: 24px;}
+
+.br-1{border-radius: 10%;}
+.br-2{border-radius: 20%;}
+.br-3{border-radius: 30%;}
+.br-4{border-radius: 40%;}
+.br-5{border-radius: 50%;}
+.br-6{border-radius: 60%;}
+.br-7{border-radius: 70%;}
+.br-8{border-radius: 80%;}
+.br-9{border-radius: 90%;}
+.br-10{border-radius: 100%;}

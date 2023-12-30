@@ -1,0 +1,348 @@
+{% extends "base_dashboard.html" %}
+{% block title %} | Fon Detay{% endblock %}
+{% block sources %}    
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/additional/profile.css')}}">
+{% endblock %}
+{% block body %}
+
+    <div class="dashboard container-fluid m-0 p-0" style="height: calc(100vh - 57px);">
+        <div class="h-100 w-100 d-flex flex-column flex-lg-row">
+            <div class="d-flex position-sticky bg-white sidebar bg-body-tertiary m-0 mb-lg-0 mb-3 p-0" style="min-height: 57px; border-right: solid 1px rgb(33, 37, 41, 0.25); border-bottom: solid 1px rgb(33, 37, 41, 0.25)">
+                <div class="d-flex position-sticky w-100">
+                    <ul class="nav nav-pills align-items-center justify-content-evenly flex-auto nav-flush mb-auto text-center flex-row flex-lg-column w-100">
+                        <li class="nav-item w-100-lg">
+                            <a href="/ana_panel" class="nav-link py-3 rounded-0" aria-current="page" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Ana Sayfa" data-bs-original-title="Ana Sayfa">
+                                <i class="fa fa-home" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li class="w-100-lg">
+                            <a href="/fon_ara" class="nav-link active py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Fon Ara" data-bs-original-title="Fon Ara">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li class="w-100-lg">
+                            <a href="/portfoyum" class="nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Portföyüm" data-bs-original-title="Portföyüm">
+                                <i class="fa fa-pie-chart" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li class="w-100-lg">
+                            <a href="/trend_analizi" class="nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Trend Analiz Aracı" data-bs-original-title="Trend Analiz Aracı">
+                                <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li class="w-100-lg">
+                            <a href="/portfoy_simulasyonu" class="nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Portföy Simülasyonu" data-bs-original-title="Portföy Simülasyonu">
+                                <i class="fa fa-line-chart" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li class="w-100-lg">
+                            <a href="/haberler" class="nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Haberler" data-bs-original-title="Haberler">
+                                <i class="fa fa-newspaper" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+                
+            </div>
+
+            <div class="w-100 h-100 d-flex justify-content-center px-4 py-4" style="overflow-y: scroll;">
+
+                <div class="container-xxl justify-content-center align-items-center">
+                    <div class="d-flex flex-column flex-xl-row align-items-center justify-content-between">
+                        <div class="d-flex flex-column px-5 mb-2 mb-sm-0">
+                            <h3 class="col-sm-9 text-primary">{{daily_fund_information["fund_name"]}}</h3>
+                            <h4 class="text-success">{{daily_fund_information["open"]}} ₺</h5>
+                        </div>
+                        
+                        <div class="d-grid col-sm-4 flex-column m-0 p-0 justify-content-center">
+                            <a class="fs-09rem">Alım Satım Saatleri</a>
+                            <p class="fs-09rem">{{fund_information["alim_satim_saatlari"]}}</p>
+                            <a class="fs-09rem">Satıcı Kurum</a>
+                            <p class="fs-09rem p-0 m-0">{{fund_information["alim_satim_yerleri"]}}</p>
+                        </div>
+                    </div>
+                    <div id="chart_div" class="d-flex flex-auto w-100" style="margin-top: -80px; height: 90%;">
+                        <div id='candlestick_chart' class='candlestick_chart w-100 h-100'”></div>
+                    </div>
+                    <div>
+
+                        <form id="redirectForm" class="d-flex flex-column flex-sm-row justify-content-evenly" style="margin-top: -40px; margin-bottom: 40px;">
+                            <div class="button-container" onclick="redirectTo('/fon/{{fund_information['fund_code']}}?date=1')">
+                              <a>1 Ay</a>
+                            </div>
+                            <div class="button-container" onclick="redirectTo('/fon/{{fund_information['fund_code']}}?date=2')">
+                              <a>3 Ay</a>
+                            </div>
+                            <div class="button-container" onclick="redirectTo('/fon/{{fund_information['fund_code']}}?date=3')">
+                              <a>1 Yıl</a>
+                            </div>
+                            <div class="button-container" onclick="redirectTo('/fon/{{fund_information['fund_code']}}?date=4')">
+                              <a>3 Yıl</a>
+                            </div>
+                            <div class="button-container" onclick="redirectTo('/fon/{{fund_information['fund_code']}}?date=5')">
+                              <a>5 Yıl</a>
+                            </div>
+                        </form>
+
+                    </div>
+        
+                    <div>
+                        <div class="d-flex flex-row">
+                            <div class="d-flex flex-column pr-3">
+                                <h3 style="z-index: 1023;">Fon Varlık Dağılımı</h3>
+                                <div class="d-flex align-items-center justify-content-center" style="height: 400px;">
+                                    <div id='portfolio_pie' style="height: 400px;"></div>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column w-100">
+                                {% for key, value in fund_portfolio.items() %}
+                                    <div class="w-100">
+                                        <a class="text-decoration-none text-primary"><b>{{key}}</b></a>
+                                        <div class="container w-100">
+                                            <div class="row">
+                                                <div class="col-sm-8 p-0 m-0">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" role="progressbar" style="width: {{value}}%" aria-valuenow="{{value}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="fs-09rem col-sm-4 text-right"> <!-- Adjusted this line -->
+                                                    {{value}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row">
+                            <div class="d-flex flex-column">
+                                <h3 style="z-index: 1023;">Risk</h3>
+                                <div id="risk_graph_div" class="d-flex align-items-center justify-content-center" style="width: 360px;">
+                                    <div id='risk_graph' class='risk_graph' style="width: 360px; height: 300px;"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <h3>Yönetim</h3>
+                                <div class="d-flex flex-column">
+                                    <div class="d-flex flex-column">
+                                        <div>
+                                            <a><b>Fon Müdürünün Tecrübesi</b></a>
+                                            <p>{{fund_information["mudur_tecrube"]}}</p>
+                                        </div>
+                                        <div>
+                                            {% if fund_information["mudur_lisans"]|string|length %}
+                                                <a><b>Fon Müdürünün Sahip Olduğu Lisanslar</b></a>
+                                                <p>{{fund_information["mudur_lisans"]}}</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-flex flex-column">
+                                        <div class="d-flex flex-column">
+                                            {% if fund_information["yonetici_1_tecrube"]|string|length %}
+                                                <a><b>1. Fon Yöneticisinin Tecrübesi</b></a>
+                                                <p>{{fund_information["yonetici_1_tecrube"]}}</p>
+                                            {% endif %}
+                                        </div>
+                                        <div>
+                                            {% if fund_information["yonetici_1_lisans"]|string|length %}
+                                                <a><b>1. Fon Yöneticisinin Sahip Olduğu Lisanslar</b></a>
+                                                <p>{{fund_information["yonetici_1_lisans"]}}</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <div class="d-flex flex-column">
+                                            {% if fund_information["yonetici_2_tecrube"]|string|length %}
+                                                <a><b>2. Fon Yöneticisinin Tecrübesi</b></a>
+                                                <p>{{fund_information["yonetici_2_tecrube"]}}</p>
+                                            {% endif %}
+                                        </div>
+                                        <div>
+                                            {% if fund_information["yonetici_2_lisans"]|string|length %}
+                                                <a><b>2. Fon Yöneticisinin Sahip Olduğu Lisanslar</b></a>
+                                                <p>{{fund_information["yonetici_2_lisans"]}}</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex flex-row justify-content-between align-items-center">
+                                <h3>{{fund_information["fund_code"]}} Stratejisi</h3>
+                                <a>{{fund_information["fund_type"]}}</a>
+                            </div>
+                            {{fund_information["strategy"]}}
+                        </div>
+                        <div class="mb-3">
+                            <h2>Fon İletişim Bilgileri</h2>
+                            <div class="d-flex flex-column">
+                                {% if fund_information["url"]|string|length %}
+                                    <div>
+                                        <a><b>Fon İnternet Sitesi</b></a>
+                                        <p>{{fund_information["url"]}}</p>
+                                    </div>
+                                {% endif %}
+                                {% if fund_information["email"]|string|length %}
+                                    <div>
+                                        <a><b>Fon E-Posta Adresi</b></a>
+                                        <p>{{fund_information["email"]}}</p>
+                                    </div>
+                                {% endif %}
+                                {% if fund_information["url"]|string|length %}
+                                    <div>
+                                        <a><b>Fon İnternet Sitesi</b></a>
+                                        <p>{{fund_information["url"]}}</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <h2>Diğer Bilgiler</h2>
+                            <div class="d-flex flex-column">
+                                {% if fund_information["nemalandirma_esaslari"]|string|length %}
+                                    <div>
+                                        <a><b>Nemalandırma Esasları</b></a>
+                                        <p>{{fund_information["nemalandirma_esaslari"]}}</p>
+                                    </div>
+                                {% endif %}
+                                {% if fund_information["diger_hususlar"]|string|length %}
+                                    <div>
+                                        <a><b>Diğer Hususlar</b></a>
+                                        <p>{{fund_information["diger_hususlar"]}}</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block scripts %}
+
+<script>
+    function redirectTo(url) {
+      window.location.href = url;
+    }
+</script>
+
+<script>
+    var graphs = {{ figure | safe }};
+
+    var config = {"displayModeBar": false, "responsive": true};
+
+    Plotly.setPlotConfig(config);
+
+    Plotly.newPlot('candlestick_chart', graphs, {});
+</script>
+<script>
+    var graphs = {{ portfolio_pie | safe }};
+
+    var config = {"displayModeBar": false, "responsive": true};
+
+    Plotly.setPlotConfig(config);
+
+    Plotly.newPlot('portfolio_pie', graphs, {});
+</script>
+<script>
+    var risk_graph = {{ risk_graph | safe }};
+
+    var config = {"displayModeBar": false, "responsive": true};
+
+    Plotly.setPlotConfig(config);
+
+    Plotly.newPlot('risk_graph', risk_graph, {});
+</script>
+
+<style>
+@media screen and (min-width: 480px) and (max-width: 576px){
+    #chart_div{
+        transform: rotate(90deg);
+        height: 80vw !important;
+        width: 80vh !important;
+        padding: 0;
+        margin-top: 100px !important;
+        margin-bottom: 120px !important;
+        margin-left: calc(-30% - 30vw);
+    }
+    #candlestick_chart{
+        height: 100vw !important;
+        width: 100vh !important;
+        margin-top: -50vw;
+    }
+}
+@media screen and (max-width: 480px){
+    #chart_div{
+        transform: rotate(90deg);
+        height: 80vw !important;
+        width: 80vh !important;
+        padding: 0;
+        margin-top: 100px !important;
+        margin-bottom: 120px !important;
+        margin-left: calc(-30% - 30vw);
+    }
+    #candlestick_chart{
+        height: 100vw !important;
+        width: 100vh !important;
+        margin-top: -40vw;
+    }
+}
+@media screen and (max-width: 425px){
+    #chart_div{
+        transform: rotate(90deg);
+        height: 80vw !important;
+        width: 80vh !important;
+        padding: 0;
+        margin-top: 100px !important;
+        margin-bottom: 120px !important;
+        margin-left: calc(-30% - 30vw);
+    }
+    #candlestick_chart{
+        height: 100vw !important;
+        width: 100vh !important;
+        margin-top: -30vw;
+    }
+}
+@media screen and (max-width: 375px){
+
+    #chart_div{
+        transform: rotate(90deg);
+        height: 80vw !important;
+        width: 80vh !important;
+        padding: 0;
+        margin-top: 140px !important;
+        margin-bottom: 160px !important;
+        margin-left: calc(-30% - 30vw);
+    }
+    #candlestick_chart{
+        height: 100vw !important;
+        width: 100vh !important;
+        margin-top: -10vw;
+    }
+}
+</style>
+
+<style>
+    .button-container{
+        padding: 20px 40px;
+        border: solid 2px #1039A5;
+        cursor: pointer;
+        border-radius: 6px;
+        -webkit-box-shadow: 0px 6px 6px 3px rgba(0,0,0,0.1);
+        -moz-box-shadow: 0px 6px 6px 3px rgba(0,0,0,0.1);
+        box-shadow: 0px 6px 6px 3px rgba(0,0,0,0.1);
+    }
+    @media screen and (max-width: 576px){
+        .button-container{
+            padding: 10px 20px;
+        }
+    }
+</style>
+
+{% endblock %}

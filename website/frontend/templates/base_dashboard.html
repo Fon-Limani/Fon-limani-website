@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <title>Fon Limanı{% block title %}{% endblock %}</title>
+
+        <meta name="keywords" content="Fon Limanı"/>
+        <meta name="description" content="Fon Limanı">
+        <meta name="author" content="www.fonlimani.com">
+
+		<!-- Mobile Metas -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
+
+		<link id="googleFonts" href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,-25" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+		
+        <!-- Favicon -->
+		<link rel="icon" type="image/x-icon" href="static/assets/svg/base/fon_limani_logo_white.svg"/>
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/bootstrap.css')}}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/additional/base.css')}}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/additional/default.css')}}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/additional/base_dashboard.css')}}">
+
+        {% block sources %}
+        {% endblock %}
+    </head>
+    <body class="body">
+        <div class="loading-overlay">
+            <div class="bounce-loader">
+                <div class="wrapper-pulse">
+                    <div class="cssload-pulse-loader"></div>
+                </div>
+            </div>
+        </div>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="flashes" style="position: absolute; right: 20px; bottom: 0; display: flex; flex-direction: column; justify-content: right; align-items: end; z-index: 1000;">
+                    {% for message in messages %}
+                    <div class="toast mb-2" role="alert" aria-live="assertive" aria-atomic="true" style="z-index: 1000; background-color: white;">
+                        <div class="toast-header d-flex flex-row justify-content-between">
+                        <strong class="mr-auto">Uyarı</strong>
+                        <button type="button" class="close btn btn-primary m-0 p-0 d-flex justify-content-center align-items-center" data-dismiss="toast" aria-label="Close" style="height: 24px; width: 24px;">
+                            <span aria-hidden="true" class="p-0 m-0">&times;</span>
+                        </button>
+                        </div>
+                        <div class="toast-body" style="opacity: 100% !important;">
+                        {{message}}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <header class="sticky-top">
+            
+            <nav class="navbar navbar-expand-lg navbar-light bg-white px-5">
+
+                <div class="p-0 m-0 d-flex flex-row-lg w-100-lg justify-content-between container-fluid">
+                    <div class="d-flex flex-row justify-conentent-center align-items-center gap-2">
+                        <img src="{{ url_for('static', filename='assets/svg/base/fon_limani_logo_blue.svg')}}" width="36" height="36">
+                        <a class="navbar-brand text-primary font-weight-semi-bold text-md-center" href="/">Fon Limanı</a>
+                    </div>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    
+                    <div class="collapse navbar-collapse flex-auto w-100" id="navbarSupportedContent">
+                        <div class="w-100 d-flex flex-row-lg justify-content-between">
+                            <div class="navigations mx-auto">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-primary" href="#">Fonlar</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-primary" href="#">Liman'dan Haberler</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-primary" href="#">Hakkımızda</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-primary" href="#">Destek Merkezi</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="dropdown text-end">
+                            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                              <img src="{{ url_for('static', filename='assets/png/dashboard/profile_pic.png')}}" alt="mdo" width="32" height="32" class="rounded-circle">
+                            </a>
+                            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" data-popper-placement="bottom-end" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(-110px, 34px);">
+                              <li><a class="dropdown-item m-0" href="/profil">Profil</a></li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="dropdown-item m-0" href="/logout">Güvenli Çıkış Yap</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <hr class="m-0 p-0">
+
+        </header>
+        <main>
+            {% block body %}
+
+            {% endblock %}
+        </main>
+
+        <!--
+        <div class="alert text-center cookiealert" role="alert">
+            <b>Bu sitede çerezler kullanır.</b> &#x1F36A; Sitede gezinmeye devam etmekle, çerez kullanmamızı kabul etmiş olursunuz. <a href="/cerez_politikasi" target="_blank">Daha Fazla Bilgi</a>
+
+            <button type="button" class="btn btn-primary btn-sm acceptcookies">
+                Kapat
+            </button>
+        </div>
+
+        <script src="{{ url_for('static', filename='js/cookiealert.js')}}"></script>
+        -->
+
+        <script src="{{ url_for('static', filename='bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+        <script src="{{ url_for('static', filename='bootstrap/js/src/sidebars.js')}}"></script>
+
+        <script src="{{ url_for('static', filename='bootstrap/dist/js/additional/graph.js')}}"></script>
+
+        <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+
+        {% block scripts %}
+
+        {% endblock %}
+
+        <script>
+            $(document).ready(function() {
+                $('.toast').toast("show");
+            });
+        
+            document.addEventListener("DOMContentLoaded", function() {
+                $('.toast').toast();
+            });
+        
+            $(document).ready(function() {
+                // Close button click event handler
+                $(".close").click(function() {
+                    // Find the closest parent with the class .toast and hide it
+                    $('.toast').toast("hide");
+                });
+            });
+        </script>
+    </body>
+</html>

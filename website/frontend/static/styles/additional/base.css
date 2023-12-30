@@ -1,0 +1,16 @@
+section{
+    height: 100%;
+    position: relative;
+    min-height: calc(100vh - 57px);
+}    
+
+@media (min-width: 992px) {
+    section{
+        height: calc(100vh - 57px);
+    }    
+}
+
+
+*{
+    scroll-behavior: smooth;
+}

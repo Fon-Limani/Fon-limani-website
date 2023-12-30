@@ -1,0 +1,287 @@
+{% extends "base.html" %}
+{% block title %} | Ana Sayfa{% endblock %}
+{% block sources %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/additional/index.css')}}">
+{% endblock %}
+{% block body %}
+
+
+    <div class="main-scroll">
+
+        <section id="main">
+
+            <div id="component" class="container-fluid p-lg-5 d-flex flex-column justify-content-center align-items-center" style="height: calc(100vh - 170px);">
+                <h2 class="text-center text-dark display-4 font-weight-medium m-lg-0 px-lg-5 py-lg-3">
+                    Özetler, Haberler, Tahminler Tek Uygulamada.
+                    <br>
+                    Fonlar güvende, Liman’da!
+                </h2>
+
+                <p class="text-center text-black fs-5 font-weight-regular m-lg-0 px-lg-3 px-lg-5 py-lg-2">
+                Fon Limanı, yatırım dünyasında sağlam bir liman gibi hareket eden bir uygulamadır.
+                <br>
+                Yatırım yaparken güvenilir bilgilere, risk tahminlerine ve fondan bağımsız haberlere ihtiyacınız varsa, doğru yerdesiniz.
+                </p>
+            </div>
+            
+            <div class="wave-box">
+                <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                    <defs>
+                        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                    </defs>
+                    <g class="parallax">
+                        <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(123,200,251,0.6" />
+                        <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(0,153,255,.48)" />
+                        <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(29,117,175,.46)" />
+                    </g>
+                </svg>
+                <svg style="position: absolute;bottom: 24px;left: calc(50% - 24px); cursor: pointer;" id="scrollButton" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48"><path stroke-width="0.5" style="fill: white;" d="M5.22 8.22a.749.749 0 0 0 0 1.06l6.25 6.25a.749.749 0 0 0 1.06 0l6.25-6.25a.749.749 0 1 0-1.06-1.06L12 13.939 6.28 8.22a.749.749 0 0 0-1.06 0Z"></path></svg>
+            </div>
+
+        </section>
+
+        <div>
+        <section style="background: url(static/assets/png/section_2.png); background-size: cover;">
+        </section>
+
+        <section id="second" class="d-flex flex-column align-items-center justify-content-around">
+            <div class="d-flex flex-auto align-items-center justify-content-center mt-5">
+                <h2 class="text-center text-dark display-4 font-weight-medium m-lg-0 px-lg-5 py-lg-3">Liman ile İlgilendiğin Haberleri Anında Al!</h2>
+            </div>
+            <div class="row-cols-lg-3 d-flex flex-lg-row flex-column align-items-center justify-content-evenly br-12px m-0 p-3" style="height: 100%; width: 100%;">
+                <div class="d-flex flex-column align-items-center justify-content-center">
+                    <div class="card mb-3 px-4" style="width: 360px; height: 90px; max-width: 360px; max-height: 180px; min-width: 340px;">
+                        <div class="d-flex flex-row">
+                            <div class="w-100">
+                                <div class="card-body pe-2 ps-0 w-100">
+                                    <p class="fs-08rem mb-1" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical;">{{news[0]["news_information"]}}</p>
+                                    <div class="d-flex align-items-center justify-content-between w-100">
+                                        <a class="text-dark text-decoration-none fs-08rem" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; line-clamp: 1; -webkit-box-orient: vertical;">{{news[0]["timestamp"][:10]}}</a>
+                                        <a class="text-primary" href="{{ news[0]['news_link'] }}" target="_blank" rel="noopener noreferrer">Habere Git</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-3 px-4" style="width: 360px; height: 90px; max-width: 360px; max-height: 180px; min-width: 340px;">
+                        <div class="d-flex flex-row w-100">
+                            <div class="w-100">
+                                <div class="card-body pe-2 ps-0 w-100">
+                                    <p class="fs-08rem mb-1" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical;">{{news[1]["news_information"]}}</p>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <a class="text-dark text-decoration-none fs-08rem" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; line-clamp: 1; -webkit-box-orient: vertical;">{{news[1]["timestamp"][:13]}}</a>
+                                        <a class="text-primary" href="{{ news[1]['news_link'] }}" target="_blank" rel="noopener noreferrer">Habere Git</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-3 px-4" style="width: 360px; height: 90px; max-width: 360px; max-height: 180px; min-width: 340px;">
+                        <div class="d-flex flex-row">
+                            <div class="w-100">
+                                <div class="card-body pe-2 ps-0 w-100">
+                                    <p class="fs-08rem mb-1" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical;">{{news[2]["news_information"]}}</p>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <a class="text-dark text-decoration-none fs-08rem" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; line-clamp: 1; -webkit-box-orient: vertical;">{{news[2]["timestamp"][:13]}}</a>
+                                        <a class="text-primary" href="{{ news[2]['news_link'] }}" target="_blank" rel="noopener noreferrer">Habere Git</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-3 px-4" style="width: 360px; height: 90px; max-width: 360px; max-height: 180px; min-width: 340px;">
+                        <div class="d-flex flex-row">
+                            <div class="w-100">
+                                <div class="card-body pe-2 ps-0 w-100">
+                                    <p class="fs-08rem mb-1" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical;">{{news[3]["news_information"]}}</p>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <a class="text-dark text-decoration-none fs-08rem" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; line-clamp: 1; -webkit-box-orient: vertical;">{{news[3]["timestamp"][:13]}}</a>
+                                        <a class="text-primary" href="{{ news[3]['news_link'] }}" target="_blank" rel="noopener noreferrer">Habere Git</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col d-flex align-items-center justify-content-center my-lg-0 my-5">
+                    <div style="position: relative;">
+                        <img class="img-fluid" src="{{ url_for('static', filename='assets/svg/index/light_house_blue.svg')}}">
+                        <div id="lightshine"></div>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-column align-items-center justify-content-center">
+                    <div class="card mb-3 px-4" style="width: 360px; height: 90px; max-width: 360px; max-height: 180px; min-width: 340px;">
+                        <div class="d-flex flex-row">
+                            <div class="w-100">
+                                <div class="card-body pe-2 ps-0 w-100">
+                                    <p class="fs-08rem mb-1" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical;">{{news[4]["news_information"]}}</p>
+                                    <div class="d-flex align-items-center justify-content-between w-100">
+                                        <a class="text-dark text-decoration-none fs-08rem" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; line-clamp: 1; -webkit-box-orient: vertical;">{{news[4]["timestamp"][:13]}}</a>
+                                        <a class="text-primary" href="{{ news[4]['news_link'] }}" target="_blank" rel="noopener noreferrer">Habere Git</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-3 px-4" style="width: 360px; height: 90px; max-width: 360px; max-height: 180px; min-width: 340px;">
+                        <div class="d-flex flex-row w-100">
+                            <div class="w-100">
+                                <div class="card-body pe-2 ps-0 w-100">
+                                    <p class="fs-08rem mb-1" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical;">{{news[5]["news_information"]}}</p>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <a class="text-dark text-decoration-none fs-08rem" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; line-clamp: 1; -webkit-box-orient: vertical;">{{news[5]["timestamp"][:13]}}</a>
+                                        <a class="text-primary" href="{{ news[5]['news_link'] }}" target="_blank" rel="noopener noreferrer">Habere Git</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-3 px-4" style="width: 360px; height: 90px; max-width: 360px; max-height: 180px; min-width: 340px;">
+                        <div class="d-flex flex-row">
+                            <div class="w-100">
+                                <div class="card-body pe-2 ps-0 w-100">
+                                    <p class="fs-08rem mb-1" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical;">{{news[6]["news_information"]}}</p>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <a class="text-dark text-decoration-none fs-08rem" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; line-clamp: 1; -webkit-box-orient: vertical;">{{news[6]["timestamp"][:13]}}</a>
+                                        <a class="text-primary" href="{{ news[6]['news_link'] }}" target="_blank" rel="noopener noreferrer">Habere Git</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-3 px-4" style="width: 360px; height: 90px; max-width: 360px; max-height: 180px; min-width: 340px;">
+                        <div class="d-flex flex-row">
+                            <div class="w-100">
+                                <div class="card-body pe-2 ps-0 w-100">
+                                    <p class="fs-08rem mb-1" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical;">{{news[7]["news_information"]}}</p>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <a class="text-dark text-decoration-none fs-08rem" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; line-clamp: 1; -webkit-box-orient: vertical;">{{news[7]["timestamp"][:13]}}</a>
+                                        <a class="text-primary" href="{{ news[7]['news_link'] }}" target="_blank" rel="noopener noreferrer">Habere Git</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="d-flex flex-column align-items-center justify-content-around" id="biz">
+            <div class="d-flex flex-lg-row flex-column align-items-center justify-content-center w-100">
+                <div class="card br-12px shadow-lg m-3" style="width: 18rem;">
+                    <div class="card-body d-flex flex-column align-items-center text-center justify-content-center">
+                        <h5 class="card-title m-0 py-2">Fon Özetleri</h5>
+                        <p class="card-text fs-09rem text-center m-0 p-2">Fon Limanı'nın kapsamlı analizleri ile her bir fonun detaylı özetine ulaşabilir, içerik, ağırlık ve performansları hakkında bilgi sahibi olabilirsiniz.</p>
+                    </div>
+                    <div class="d-flex align-items-end" style="height: 208px; width: 100%;">
+                        <img src="{{ url_for('static', filename='assets/png/index/s3_i1.png')}}" class="card-img-bottom" style="width: 100%;">
+                    </div>
+                </div>
+                
+                <div class="card br-12px shadow-lg m-3" style="width: 18rem;">
+                    <div class="card-body d-flex flex-column align-items-center text-center justify-content-center">
+                        <h5 class="card-title m-0 py-2">Trend Tahminleri</h5>
+                        <p class="card-text fs-09rem text-center m-0 p-2">Fon Limanı'nın gelişmiş analitik araçları sayesinde piyasa trendlerini tahmin edebilir, gelecekteki olası değişikliklere hazırlıklı olabilirsiniz.</p>
+                    </div>
+                    <div class="d-flex align-items-end" style="height: 208px; width: 100%;">
+                        <img src="{{ url_for('static', filename='assets/png/index/s3_i2.png')}}" class="card-img-bottom" style="width: 100%;">
+                    </div>
+                </div>
+                
+                <div class="card br-12px shadow-lg m-3" style="width: 18rem;">
+                    <div class="card-body d-flex flex-column align-items-center text-center justify-content-center">
+                        <h5 class="card-title m-0 py-2">Haber Özetleri</h5>
+                        <p class="card-text fs-09rem text-center m-0 p-2">Fon Limanı, güncel haberler ve finansal gelişmeleri sizin için özetleyerek, yatırımınızı etkileyebilecek önemli bilgileri kolayca takip etmenizi sağlar.</p>
+                    </div>
+                    <div class="d-flex align-items-end" style="height: 208px; width: 100%;">
+                        <img src="{{ url_for('static', filename='assets/png/index/s3_i3.png')}}" class="card-img-bottom" style="width: 100%;">
+                    </div>
+                </div>
+                
+                <div class="card br-12px shadow-lg m-3" style="width: 18rem;">
+                    <div class="card-body d-flex flex-column align-items-center text-center justify-content-center">
+                        <h5 class="card-title m-0 py-2">Kolay Erişim</h5>
+                        <p class="card-text fs-09rem text-center m-0 p-2">Fon Limanı, kullanıcı dostu arayüzü ve hızlı erişim özellikleriyle yatırımlarınıza kolayca yönetilebilirlik ve erişim sağlar, finans dünyasına hızlı bir giriş yapabilirsiniz.</p>
+                    </div>
+                    <div class="d-flex align-items-end" style="height: 208px; width: 100%;">
+                        <img src="{{ url_for('static', filename='assets/png/index/s3_i4.png')}}" class="card-img-bottom" style="width: 100%;">
+                    </div>
+                </div>
+                
+            </div>
+            <div class="d-flex flex-row-lg flex-column align-items-center justify-content-around">
+                <img src="{{ url_for('static', filename='assets/png/index/yahoo_finance_logo.png')}}">
+            </div>
+        </section>
+        
+        <section class="d-flex flex-row align-items-center justify-content-around" style="overflow: hidden;" id="mobile">
+            <div class="row d-flex justify-content-center">
+                <div class="col col-lg-4 d-flex flex-column align-items-start justify-content-start px-5 gap-4">
+                    <div><a class="fs-1 text-dark text-decoration-none"><b>Fon Limanı şimdi Google Play ve App Store’da!</b></a></div>
+                    <div><a class="fs-6 text-decoration-none" style="color: black; line-height: 200%;">Uygulamayı indir, bildirimleri aktif et, kolayca fonlarını takip et. Son güncellemeler, yeni haberler, fon dağılımlarının hepsi, şimdi telefonunda. Fon Limanı, mobil uygulaması ile kişiselleştirilmiş bir deneyim sizi bekliyor!</a></div>
+                    <div class="d-flex flex-row align-items-center justify-content-center">
+                        <div class="me-2"><img src="{{ url_for('static', filename='assets/png/index/google-play-badge.png')}}" height="40"></div>
+                        <div><img src="{{ url_for('static', filename='assets/png/index/apple-store-badge.png')}}" height="40"></div>
+                    </div>
+                </div>
+    
+                <div class="col col-lg-6 position-relative">
+                    <img class="position-absolute" src="{{ url_for('static', filename='assets/png/index/mockrocket-capture.png')}}" style="height: 650px; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                </div>
+            </div>
+            
+        </section>
+        <section id="footer" class="position-relative">
+            <div class="position-absolute" style="background-image: url('{{ url_for('static', filename='assets/png/index/image.png')}}'); opacity: .075; width: 100%; height: 100%; z-index: -1;"></div>
+            <div class="container d-flex justify-content-center align-content-center h-100">
+              <div class="row w-100 h-100 d-flex justify-content-center align-content-center">
+                <!-- First Div with Form -->
+                <div class="col col-md-9 h-100 d-flex flex-column justify-content-center align-items-start">
+                  <h3 class="ms-5">Bize Ulaşın</h3>
+                  <form action="{{ url_for('index') }}" method="post" class="w-75 p-5 gap-4 d-flex flex-column">
+                    <div class="form-group">
+                      <label for="senderEmail">E Posta Adresiniz</label>
+                      <input type="email" class="form-control" id="senderEmail" name="senderEmail" required="">
+                    </div>
+        
+                    <div class="form-group">
+                      <label for="messageTitle">Başlık</label>
+                      <input type="text" class="form-control" id="messageTitle" name="messageTitle" required="">
+                    </div>
+        
+                    <div class="form-group">
+                      <label for="messageBody">Mesaj</label>
+                      <textarea class="form-control" id="messageBody" name="messageBody" rows="4" required=""></textarea>
+                    </div>
+        
+                    <button type="submit" class="btn btn-primary">Mesajı Gönder</button>
+                  </form>
+                </div>
+        
+                <!-- Second Div as a Blank Container -->
+                <div class="col col-md-3 h-100 d-flex flex-column justify-content-center align-items-center">
+                  <div>
+                    <p><b>İletişim</b></p>
+                    <p>Adres: Ortaköy, Çırağan Cd. No:36, 34349 Beşiktaş/İstanbul</p>
+                    <p>E-Posta: fonlimani@gmail.com</p>
+                  </div>
+                  <div>
+                    <p><b>Hakkımızda</b></p>
+                    <p>Uygulamayı indir, bildirimleri aktif et, kolayca fonlarını takip et. Son güncellemeler, yeni haberler, fon dağılımlarının hepsi, şimdi telefonunda. Uygulamayı indir, bildirimleri aktif et, kolayca fonlarını takip et.</p>
+                    <div class="d-flex flex-row justify-content-start align-items-center">
+                        <img src="/static/assets/svg/base/fon_limani_logo_blue.svg" height="48" class="me-3">
+                        <a class="text-decoration-none fs-3" href="/#main"><b>Fon Limanı</b></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </section>
+    </div>
+
+
+{% endblock %}
+{% block scripts %}
+    <script src="{{ url_for('static', filename='bootstrap/dist/js/additional/page_scroll.js')}}"></script>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %} | Giriş Yap{% endblock %}
+{% block sources %}
+<link rel="stylesheet"
+    href="{{ url_for('static', filename='styles/additional/login.css')}}">
+{% endblock %}
+{% block body %}
+<div class="d-flex align-items-center justify-content-center w-100" style="min-height: calc(100vh - 57px);">
+    <div class="container px-lg-5 p-0 m-3 w-100 d-flex align-items-center justify-content-center">
+        <div class="row w-100">
+            <div class="mx-auto">
+                <div class="shadow-lg">
+                    <div class="d-flex align-items-center">
+                        <div class="d-none d-md-block d-lg-block w-75">
+                            <img src="/static/assets/png/liman_1.jpg" class="objectFit">
+                        </div>
+                        <div class="w-100 d-flex align-items-center justify-content-center">
+                            <div class="py-5 px-0 mx-4 my-0" id="formPanel">
+                                <div class="text-center mb-5">
+                                    <h1 class="customHeading h3 text-uppercase">KAYIT OL</h1>
+                                </div>
+                                <form method="post" action="{{url_for('sign_up')}}">
+                                    <div class="custom-form-group">
+                                        <label class="text-uppercase" for="username">Kullanıcı Adı</label>
+                                        <input type="text" id="username" name="username" class="pb-1 w-100"><span class="pb-1"><i class="fas fa-user"></i></span>
+                                    </div>
+                                    <div class="custom-form-group mt-3">
+                                        <label class="text-uppercase" for="name">Ad Soyad</label>
+                                        <input type="text" id="name" name="name" class="pb-1 w-100"><span class="pb-1"><i class="fas fa-user"></i></span>
+                                    </div>
+                                    <div class="custom-form-group mt-3">
+                                        <label class="text-uppercase" for="password">ŞİFRE</label>
+                                        <input type="password" id="password" name="password" class="pb-1 w-100"><span class="pb-1"><i id="showCursor" class="fas fa-eye-slash" onclick="showPassword(event)"></i></span>
+                                    </div>
+                                    <div class="custom-form-group mt-3">
+                                        <label for="password-corr">TELEFON NUMARASI ( Opsiyonel )</label>
+                                        <input type="text" id="phone" name="phone" class="pb-1 w-100"><span class="pb-1"></span>
+                                    </div>
+                                    <div class="mt-4">
+                                        <button type="submit" class="w-100 p-2 d-block custom-btn">Kayıt Ol</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script
+    src="{{ url_for('static', filename='bootstrap/dist/js/additional/index.js')}}"></script>
+{% endblock %}

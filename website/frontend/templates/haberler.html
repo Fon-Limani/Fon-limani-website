@@ -1,0 +1,82 @@
+{% extends "base_dashboard.html" %}
+{% block title %} | Ana Panel{% endblock %}
+{% block sources %}
+    
+{% endblock %}
+{% block body %}
+
+<div class="dashboard container-fluid m-0 p-0" style="height: calc(100vh - 57px);">
+    <div class="h-100 w-100 d-flex flex-column flex-lg-row">
+        <div class="d-flex position-sticky bg-white sidebar bg-body-tertiary m-0 mb-lg-0 mb-3 p-0" style="min-height: 57px; border-right: solid 1px rgb(33, 37, 41, 0.25); border-bottom: solid 1px rgb(33, 37, 41, 0.25)">
+            <div class="d-flex position-sticky w-100">
+                <ul class="nav nav-pills align-items-center justify-content-evenly flex-auto nav-flush mb-auto text-center flex-row flex-lg-column w-100">
+                    <li class="nav-item w-100-lg">
+                        <a href="/ana_panel" class="nav-link py-3 rounded-0" aria-current="page" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Ana Sayfa" data-bs-original-title="Ana Sayfa">
+                            <i class="fa fa-home" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="w-100-lg">
+                        <a href="fon_ara" class="nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Fon Ara" data-bs-original-title="Fon Ara">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="w-100-lg">
+                        <a href="/portfoyum" class="nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Portföyüm" data-bs-original-title="Portföyüm">
+                            <i class="fa fa-pie-chart" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="w-100-lg">
+                        <a href="/trend_analizi" class="nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Trend Analiz Aracı" data-bs-original-title="Trend Analiz Aracı">
+                            <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="w-100-lg">
+                        <a href="/portfoy_simulasyonu" class="nav-link py-3 rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Portföy Simülasyonu" data-bs-original-title="Portföy Simülasyonu">
+                            <i class="fa fa-line-chart" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="w-100-lg">
+                        <a href="/haberler" class="nav-link py-3 active rounded-0" data-bs-toggle="tooltip" data-bs-placement="right" aria-label="Haberler" data-bs-original-title="Haberler">
+                            <i class="fa fa-newspaper" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                </ul>
+                
+            </div>
+            
+        </div>
+
+        <div class="w-100 h-100 d-flex justify-content-center px-4 py-4" style="overflow-y: scroll;">
+
+            <div class="main_page w-100">
+                <div class="container-fluid p-0">
+                    <div class="row">
+                        <div class="row bottom-panel px-lg-5">
+                            <h5 class="mb-2 m-0 p-0 text-center">Haberler</h5>
+                            <div class="d-flex row align-items-center justify-content-center">
+                                {% for i in range(news | length) %}
+                                  <div class="card mb-1">
+                                    <div class="card-body p-2">
+                                        <p class="fs-09rem mb-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{news[i]["news_information"]}}</p>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <a class="text-dark text-decoration-none fs-09rem" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; line-clamp: 1; -webkit-box-orient: vertical;">{{news[i]["timestamp"][:10]}}</a>
+                                            <a class="text-primary" href="{{ news[i]['news_link'] }}" target="_blank" rel="noopener noreferrer">Habere Git</a>
+                                        </div>
+                                    </div>
+                                  </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+{% endblock %}
+{% block scripts %}
+
+{% endblock %}
